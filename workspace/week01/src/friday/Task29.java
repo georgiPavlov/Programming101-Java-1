@@ -57,5 +57,9 @@ public class Task29 {
 		Task29 test = new Task29();
 		System.out.println(test.isHack(6));
 		System.out.println(test.nextHack(7));
+		System.out.println(test.nextHack(9));
+		System.out.println(test.nextHack(10));
+		System.out.println(test.nextHack(7));
+		System.out.println("Gosho beshe tuk!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	}
 }
