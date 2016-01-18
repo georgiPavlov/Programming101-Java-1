@@ -1,0 +1,39 @@
+package friday_v1;
+
+public class AccountHistory {
+
+	private String mDonorAccountID;
+	private String mRecipiendAccountID;
+	private String mLastOperationType;
+	private static int mLastOperationIndex;
+
+	public AccountHistory() {
+		this.mDonorAccountID = null;
+		this.mRecipiendAccountID = null;
+		this.mLastOperationType = null;
+		this.mLastOperationIndex = 0;
+	}
+	
+	public String getDonorAccountID(){
+		return this.mDonorAccountID;
+	}
+	
+	public String getRecipientAccountID(){
+		return this.mRecipiendAccountID;
+	}
+	
+	public String getLastOperationType(){
+		return this.mLastOperationType;
+	}
+	
+	public int getLastOperationIndex(){
+		return this.mLastOperationIndex;
+	}
+	public void updateHistory(String donorAccount,String recipientAccount,String lastOperationType,int lastOperationIndex){
+		this.mDonorAccountID=donorAccount;
+		this.mRecipiendAccountID=recipientAccount;
+		this.mLastOperationType = lastOperationType;
+		this.mLastOperationIndex = lastOperationIndex;
+	}
+	
+}

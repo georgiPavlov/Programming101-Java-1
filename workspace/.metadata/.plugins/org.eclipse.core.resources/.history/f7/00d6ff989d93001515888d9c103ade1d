@@ -1,0 +1,33 @@
+package Tasks;
+
+public class ConsecutiveElements {
+	
+	int maxEqualConsecutive(int[] items){
+		
+		int count=0;
+		int maxCount=0;
+		int i=0;
+		for(i=0;i<items.length-1;i++){
+			if(items[i]<items[i+1]){
+				count++;
+			}
+			else{
+				if(count>maxCount){
+					maxCount=count;
+					count=0;
+				}
+				else{
+					count=0;
+				}
+			}
+		}
+		
+		return maxCount;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

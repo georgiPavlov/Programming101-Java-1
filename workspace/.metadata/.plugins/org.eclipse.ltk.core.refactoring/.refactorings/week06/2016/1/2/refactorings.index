@@ -1,0 +1,8 @@
+1452099283632	Delete element
+1452099296505	Rename package 'week06'
+1452277536241	Rename type 'BankAccountCLI'
+1452281524765	Rename field 'code'
+1452281565173	Rename field 'ID'
+1452281605190	Rename field 'id'
+1452282023162	Rename local variable 'interest'
+1452282060077	Rename method 'setiType'

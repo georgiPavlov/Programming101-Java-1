@@ -1,0 +1,31 @@
+package wednesday;
+
+import java.util.ArrayList;
+
+public class Task02<T> {
+	
+	ArrayList<T> collection;
+	
+	public Task02(){
+		collection = new ArrayList<>();
+	}
+	
+	public ArrayList<T> reverse(ArrayList<T> coll){
+		int i=0;
+		int j=coll.size();
+		Object temp;
+		for(i=0;i<coll.size();i++){
+			temp = coll.get(i);
+			coll.set(i, coll.get(j));
+			coll.set(j,(T)temp);
+			j--;
+		}
+		
+		return coll;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

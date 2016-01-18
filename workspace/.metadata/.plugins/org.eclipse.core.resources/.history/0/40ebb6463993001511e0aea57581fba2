@@ -1,0 +1,28 @@
+package restaurant.agents;
+
+import jade.core.AID;
+import jade.core.Agent;
+import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+
+public class MealAgentResponderBehaviour extends SimpleBehaviour{
+	private static final MessageTemplate mt = MessageTemplate
+			.MatchPerformative(ACLMessage.REQUEST);
+			public MealAgentResponderBehaviour(Agent agent) {
+			super(agent);
+			}
+			public void action() {
+			ACLMessage aclMessage = myAgent.receive(mt);
+			if (aclMessage != null) {
+			System.out.println(myAgent.getLocalName()
+			+ ": I receive message.\n" +
+			aclMessage);
+			} else {
+			this.block();
+			}
+			}
+			public boolean done() {
+			return false;
+			}
+}

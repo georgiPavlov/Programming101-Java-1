@@ -1,0 +1,17 @@
+package Tasks;
+
+import java.util.List;
+
+public interface Stack {
+	
+	public boolean isEmpty();
+	
+	public int length();
+	
+	public void clear();
+	
+	public  <T> void push(List<T> ob);
+	
+	//public  pop();
+
+}

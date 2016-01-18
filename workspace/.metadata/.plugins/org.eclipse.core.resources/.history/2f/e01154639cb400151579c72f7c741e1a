@@ -1,0 +1,38 @@
+package wednesday;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+public class FunnyArraySorter {
+
+	private int pivot;
+
+	public FunnyArraySorter(int piv) {
+		pivot = piv;
+	}
+
+	public void reverseSort(List list){
+		Collections.sort(list, new Comparator<Integer>(){
+
+			@Override
+			public int compare(Integer arg0, Integer arg1) {
+				// TODO Auto-generated method stub
+				if(arg0<arg1){
+					return -1;
+				}
+				else {
+					return 1;
+				}
+			}
+			
+		});
+				
+	}
+
+	
+		public void pivotSubtractionSort(List list) {
+		}
+
+}

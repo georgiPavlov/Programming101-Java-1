@@ -1,0 +1,80 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
+import java.util.Scanner;
+
+
+public class ThirdApp {
+
+	/**
+	 * @param args
+	 * @throws FileNotFoundException 
+	 */
+	public static void main(String[] args) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		String filePath = new File("").getAbsolutePath();
+		//String str;
+		int i=0;
+		BufferedReader readAllPackages=null;
+		BufferedReader readDependencies=null;
+		readAllPackages = new BufferedReader(new FileReader(filePath + "/all_packages.json"));
+		readDependencies = new BufferedReader(new FileReader(filePath + "/dependencies.json"));
+		Scanner allPackagesScanner = new Scanner(readAllPackages);
+		Scanner readDependenciesScanner = new Scanner(readAllPackages);
+		File installed_modules = new File(filePath);
+		File[] listOfFiles = installed_modules.listFiles();
+		/* for (int i = 0; i < listOfFiles.length; i++) {
+		      if (listOfFiles[i].isFile()) {
+		        System.out.println("File " + listOfFiles[i].getName());
+		      } else if (listOfFiles[i].isDirectory()) {
+		        System.out.println("Directory " + listOfFiles[i].getName());
+		      }
+		    }
+		*/
+		boolean flag=false;
+		String str;
+		packageManager installed= new packageManager();
+		packageManager []all_packages = null;
+		packageManager dependencies = new packageManager();
+		installed.set_package_name("installed_modules");
+		for (i = 0; i < listOfFiles.length; i++) {
+		      if (listOfFiles[i].isFile()) {
+		    	  installed.add_package_dependency(listOfFiles[i].getName());
+		      }
+		}
+		List<String> l = null;
+		while(allPackagesScanner.hasNext()){
+			l.add(allPackagesScanner.next());
+		}
+		
+		for(i=0;i<l.size();i++){
+			if(flag==false){
+				all_packages[i].set_package_name(l.get(i));
+				flag=true;
+			}
+			else{
+				all_packages[i].add_package_dependency(l.get(i));
+			}
+		}
+		flag=false;
+		while(readDependenciesScanner.hasNext()){
+			l.add(readDependenciesScanner.next());
+		}
+		
+		for(i=0;i<l.size();i++){
+			if(flag==false){
+				dependencies.set_package_name(l.get(i));
+				flag=true;
+			}
+			else{
+				dependencies.add_package_dependency(l.get(i));
+			}
+		}
+		
+		System.out.println("all_packages_name:" + all_packages[i].get_package_name());
+		
+	}
+
+}

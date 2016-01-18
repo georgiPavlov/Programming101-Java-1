@@ -1,0 +1,23 @@
+package restaurant.agents;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import restaurant.meals.Recipe;
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+import jade.core.behaviours.SimpleBehaviour;
+
+public class Cook extends Agent{
+
+	protected void setup(String message){
+		
+
+	}
+	
+	public Cook(){
+		
+	}
+}

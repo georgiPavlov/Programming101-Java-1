@@ -1,0 +1,171 @@
+package restaurant.agents;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import restaurant.meals.Recipe;
+import jade.core.AID;
+import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.StaleProxyException;
+import jade.core.behaviours.SimpleBehaviour;
+
+public class MealAgent extends Agent{
+	
+	
+	protected void setup()
+	{
+		
+		Recipe r = new Recipe();
+		r.init();
+		
+		
+		Object[] arg = getArguments();
+		
+		String A = new String("Apple Cookie");
+		
+		if(arg[0].equals(A))
+		{
+			System.out.println(r.getIngredients());
+			System.out.println(r.getInstructions());
+			System.out.println(r.getMealName());
+			
+		}
+		else
+		{
+			System.out.println("No such thing");
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+/*	public int counter = 0;
+
+	protected void setup(){
+		
+		System.out.println("Starting new agent...");
+		
+		String receiverName="",text="";
+		String dish;
+		
+
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Enter receiver name:");
+		receiverName = input.nextLine();
+		System.out.println("Enter dish name:");
+		dish=input.nextLine();
+		
+		ContainerController control = getContainerController();
+		String name = "Cook";
+		try {
+			System.out.println("*");
+			AgentController agentControl = control.createNewAgent(name, "restaurant.agents.Cook", null);
+			System.out.println("/");
+		} catch (StaleProxyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		//sendMessage(receiverName,getLocalName());
+		sendMessage(receiverName,dish);
+		System.out.println("f");
+		//addBehaviour(new MealAgentResponderBehaviour(this));
+		
+	}
+	
+	private void sendMessage(String receiverName,String text){
+		AID r = new AID(receiverName,AID.ISLOCALNAME);
+		ACLMessage aclMessage = new
+				ACLMessage(ACLMessage.REQUEST);
+				aclMessage.addReceiver(r);
+				aclMessage.setContent(text);
+				this.send(aclMessage);
+	}
+}
+		
+		
+		ContainerController control = getContainerController();
+		String name = "Cook";
+		try {
+			AgentController agentControl = control.createNewAgent(name, "restaurant.agents.Cook", null);
+		} catch (StaleProxyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		*/
+
+	
+/*	public MealAgent(){
+		
+		
+		
+		
+	
+	 * 	addBehaviour(new MealAgentBehaviour(this));
+	
+			addBehaviour( new CyclicBehaviour() {
+				@Override
+				public void action() {
+					System.out.println("first behavior");
+					counter++;
+					System.out.println(counter);
+				}
+			
+		});
+			
+			addBehaviour(new CyclicBehaviour() {
+				@Override
+				public void action() {
+					if (counter == 20) {
+						System.out.println("second behavior, agent is killed");
+						myAgent.doDelete();
+					}
+				}
+			}); 
+			
+
+	}
+}
+*/

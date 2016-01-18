@@ -1,0 +1,7 @@
+package Tasks;
+
+public class BMW extends Car{
+
+
+
+}

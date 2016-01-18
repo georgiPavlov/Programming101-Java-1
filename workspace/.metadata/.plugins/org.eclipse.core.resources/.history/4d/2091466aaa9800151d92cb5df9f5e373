@@ -1,0 +1,40 @@
+package restaurant.agents;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import restaurant.meals.Recipe;
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+
+public class Cook extends Agent{
+
+	protected void setup(){
+		DFAgentDescription dfd = new DFAgentDescription();
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("buyer");
+		dfd.addServices(sd);
+		DFAgentDescription[] result = null;
+		try {
+			result = DFService.search(this, dfd);
+		} catch (FIPAException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(result.length + " results" );
+		if (result.length>0)
+		System.out.println(" " + result[0].getName() );
+		addBehaviour(new CookResponderBehaviour(this));
+	}
+	
+	public Cook(){
+		
+	}
+}

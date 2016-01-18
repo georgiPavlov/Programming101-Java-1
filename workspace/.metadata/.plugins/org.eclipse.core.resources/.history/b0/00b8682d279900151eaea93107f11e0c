@@ -1,0 +1,42 @@
+package wednesday;
+
+import java.util.ArrayList;
+import java.util.ListIterator;
+
+public class Task02<T> {
+	
+	ArrayList<T> collection;
+	
+	public Task02(ArrayList<T> el){
+		collection = el;
+	}
+	
+	public ArrayList<T> reverse(ArrayList<T> coll){
+		int i=0;
+		int j=coll.size();
+		Object temp;
+		for(i=0;i<coll.size();i++){
+			temp = coll.get(i);
+			coll.set(i, coll.get(j-1));
+			coll.set(j-1,(T)temp);
+			j--;
+		}
+		
+		return coll;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList<String> l = new ArrayList();
+		l.add("a");
+		l.add("b");
+		l.add("c");
+		ArrayList<String> n;
+		Task02<String> test = new Task02(l);
+		n=test.reverse(test.collection);
+		ListIterator<String> it = n.listIterator();
+		while(it.hasNext()){
+			System.out.println(it.next() + '.');
+		}
+	}
+
+}

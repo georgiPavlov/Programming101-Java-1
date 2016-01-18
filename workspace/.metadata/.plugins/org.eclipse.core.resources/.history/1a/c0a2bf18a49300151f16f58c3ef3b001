@@ -1,0 +1,14 @@
+package Tasks;
+
+public class Car {
+	
+	private boolean testing;
+	
+	boolean getTesting(){return testing;}
+	void setTesting(boolean test){testing=test;}
+	
+	 boolean isEcoFriendly(){
+		 return true;
+	 }
+
+}

@@ -1,0 +1,14 @@
+package Tasks;
+
+public abstract class Car {
+	
+	private boolean testing;
+	private int mileage;
+	protected boolean getTesting(){return testing;}
+	protected void setTesting(boolean test){testing=test;}
+	abstract int getMileage();
+	 boolean isEcoFriendly(){
+		 return true;
+	 }
+
+}

@@ -1,0 +1,11 @@
+package Tasks;
+
+public class BMW extends Car{
+
+	@Override
+	boolean isEcoFriendly() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+}

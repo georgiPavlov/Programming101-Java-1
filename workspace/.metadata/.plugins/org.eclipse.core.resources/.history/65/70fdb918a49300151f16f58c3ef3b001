@@ -1,0 +1,9 @@
+package Tasks;
+
+public class Time {
+	
+	private String currentTime;
+	private String currentDate;
+	
+	
+}

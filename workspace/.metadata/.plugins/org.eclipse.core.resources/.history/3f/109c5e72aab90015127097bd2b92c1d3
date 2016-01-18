@@ -1,0 +1,51 @@
+package friday_v1;
+
+
+public class BankAccount {
+	
+	private enum InterestType {
+		simple("simple"), complex("complex");
+
+		public String mText;
+
+		InterestType(String text) {
+			mText = text;
+		}
+
+	};
+	
+	private int mCode = 1;
+	private static int mID;
+	private String mFirstName;
+	private String mLastName;
+	private int mAge;
+	private double mBalance;
+	private double mInterest;
+	private InterestType mInterestType;
+	private AccountHistory []mHistory;
+	private int mLastOperation = 0;
+	
+	public BankAccount(){}
+	
+	public BankAccount(String firstName,String lastName,int age,
+						double balance,double interest,String interestType){
+		
+		
+	}
+	
+	public String getFirstName(){
+		return mFirstName;
+	}
+	
+	public void setFirstName(String firstName)throws InputException{
+		if(firstName.length()<2){
+			throw new InputException();
+		}
+		else {
+			mFirstName = firstName;
+		}
+	}
+	
+	
+
+}

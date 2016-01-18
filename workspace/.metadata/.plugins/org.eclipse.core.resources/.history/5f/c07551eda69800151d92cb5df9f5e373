@@ -1,0 +1,40 @@
+package restaurant.agents;
+
+import jade.core.Agent;
+import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import restaurant.meals.Recipe;
+
+public class CookResponderBehaviour extends SimpleBehaviour{
+	private static final MessageTemplate mt = MessageTemplate
+			.MatchPerformative(ACLMessage.REQUEST);
+			public CookResponderBehaviour(Agent agent) {
+			super(agent);
+			}
+			public void action() {
+			ACLMessage aclMessage = myAgent.receive(mt);
+			if (aclMessage != null) {
+			System.out.println(myAgent.getLocalName()
+			+ ": Roger that , reply in progress.\n");
+			Recipe recipe = new Recipe();
+			recipe.init();
+			if(aclMessage.equals(recipe.getMealName())){
+				String message =recipe.getMealName() + "\n" + recipe.getIngredients() +"\n" + recipe.getInstructions();
+				CookSenderBehaviour b = new CookSenderBehaviour();
+				b.setup(message);
+			}
+			else{
+				System.out.println("Recipe not found");
+			}
+			} else {
+			this.block();
+			}
+			}
+			public boolean done() {
+			return false;
+			}
+
+}

@@ -1,0 +1,18 @@
+package friday_v1;
+
+public class BankAccountsCommandLineInterface {
+	private BankAccount mActiveAccount;
+
+	enum commands {
+		start("start"), stop("stop"), create_bank_account("create_bank_account"), show_history(
+				"show_history"), add_money("add_money"), withdraw_money("withdraw_money"), transfer_money(
+						"transfer_money"), calculate_amount("calculate_amount");
+
+		private String mCommandText;
+
+		private commands(String commandText) {
+			mCommandText = commandText;
+		}
+
+	};
+}

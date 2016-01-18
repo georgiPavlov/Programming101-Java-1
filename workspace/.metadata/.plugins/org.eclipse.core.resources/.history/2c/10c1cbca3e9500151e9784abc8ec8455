@@ -1,0 +1,37 @@
+package Tasks;
+
+import java.util.List;
+
+public class StackImpl<T> implements Stack{
+	
+	private int topOfStack;
+	private List<T> stack;
+	
+	public StackImpl(){
+		topOfStack=0;
+	}
+	
+	public boolean isEmpty() {
+		if((topOfStack-1)<0){
+			return true;
+		}
+		else return false;
+	}
+
+	public int length() {
+		return topOfStack+1;
+	}
+
+	public void clear() {
+		topOfStack=0;		
+	}
+
+	public void push(T ob){
+		
+	}
+
+
+
+	}
+
+}

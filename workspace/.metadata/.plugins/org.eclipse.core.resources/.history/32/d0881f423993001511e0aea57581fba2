@@ -1,0 +1,70 @@
+package restaurant.agents;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import restaurant.meals.Recipe;
+import jade.core.AID;
+import jade.core.Agent;
+import jade.core.behaviours.SimpleBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+
+public class CookResponderBehaviour extends SimpleBehaviour {
+	
+	 /*private static final MessageTemplate mt = MessageTemplate
+	 
+			.MatchPerformative(ACLMessage.REQUEST);
+
+	public CookResponderBehaviour(Agent agent) {
+		super(agent);
+		// agent.setAgentName(aclMessage);
+	}
+
+	public void action() {
+		ACLMessage aclMessage = myAgent.receive(mt);
+		System.out.println(aclMessage);
+		if (aclMessage != null) {
+			System.out.println(myAgent.getLocalName()
+					+ ": I receive message.\n" + aclMessage);
+			
+			System.out.println("|");
+			Recipe r = new Recipe();
+			String text="";
+			String dish="apple something";
+			String receiver="Agent";
+			r.init();
+			//Scanner input = new Scanner(System.in);
+			int i=0;
+			List<Recipe> allRecipes = new ArrayList<Recipe>();
+			allRecipes.add(r);
+			System.out.println("+");
+			for(i=0;i<allRecipes.size();i++){
+				if(allRecipes.get(i).getMealName().equalsIgnoreCase(dish)){
+					
+				
+				 // 	System.out.println("Dish: " + allRecipes.get(i).getMealName());
+				 //   System.out.println("Instructions " + allRecipes.get(i).getInstructions());
+				//	System.out.println("Ingredients " + allRecipes.get(i).getIngredients());
+					
+					
+					text=text + "Dish: " + allRecipes.get(i).getMealName() + "\n";
+					text=text + "Instructions " + allRecipes.get(i).getInstructions() + "\n";
+					text = text + "Ingredients " + allRecipes.get(i).getIngredients() + "\n";
+					
+					}
+				}
+			System.out.println("+");
+			System.out.println("-");
+		} else {
+				this.block();
+		}
+	}
+	/
+	
+
+	public boolean done() {
+		return false;
+	}
+}

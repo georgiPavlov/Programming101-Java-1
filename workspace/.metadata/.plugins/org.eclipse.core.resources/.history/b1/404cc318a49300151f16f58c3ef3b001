@@ -1,0 +1,18 @@
+package Tasks;
+
+public class Volkswagen extends Car{
+	
+	boolean isEcoFriendly(boolean test){
+		if(test)return true;
+		else return false;
+	}
+	int getMileage(){
+		return mileage;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

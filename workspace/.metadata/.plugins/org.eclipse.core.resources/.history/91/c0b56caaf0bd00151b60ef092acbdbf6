@@ -1,0 +1,54 @@
+package friday_v1;
+
+public class AccountHistory {
+
+	private Integer mDonorAccountID;
+	private Integer mRecipiendAccountID;
+	private double mBalanceBeforeOperation;
+	private double mBalanceAfterOperation;
+	private String mOperationType;
+
+	public AccountHistory() {
+		this.mDonorAccountID = new Integer("");
+		this.mRecipiendAccountID = new Integer("");
+		this.mOperationType = "";
+	}
+
+	public Integer getDonorAccountID() {
+		return this.mDonorAccountID;
+	}
+
+	public Integer getRecipientAccountID() {
+		return this.mRecipiendAccountID;
+	}
+
+	public String getLastOperationType() {
+		return this.mOperationType;
+	}
+
+	public double getBalanceBeforeOperation() {
+		return this.mBalanceBeforeOperation;
+	}
+
+	public double getBalanceAfterOperation() {
+		return this.mBalanceAfterOperation;
+	}
+
+	public void updateHistory(Integer donorAccount, Integer recipientAccount, String lastOperationType,
+			double balanceBeforeOperation, double balanceAfterOperation) {
+		this.mDonorAccountID = donorAccount;
+		this.mRecipiendAccountID = recipientAccount;
+		this.mOperationType = lastOperationType;
+		this.mBalanceBeforeOperation = balanceBeforeOperation;
+		this.mBalanceAfterOperation = balanceAfterOperation;
+	}
+
+	public String getAccountHistoryInformation() {
+		return "Donor ID:" + this.mDonorAccountID + "\n" + "Recipient ID:" + this.mRecipiendAccountID + "\n"
+				+ "Operation Type:" + this.mOperationType + "\n" + "Balance before transaction:"
+				+ this.mBalanceBeforeOperation + "\n" + "Balance after transaction:" + this.mBalanceAfterOperation
+				+ "\n";
+
+	}
+
+}

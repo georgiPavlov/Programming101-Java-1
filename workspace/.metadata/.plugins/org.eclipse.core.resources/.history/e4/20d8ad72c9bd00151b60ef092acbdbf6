@@ -1,0 +1,21 @@
+package friday_v1;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
+final public class BankAccountConsole {
+
+	BankAccountsCommandLineInterface console;
+
+	public BankAccountConsole() throws IOException {
+		DataInputStream input = new DataInputStream(System.in);
+		PrintStream output = new PrintStream(System.out);
+		output.writeUTF("creating console...");
+
+		console = new BankAccountsCommandLineInterface(input, output);
+		output.writeUTF("done.");
+	}
+
+}

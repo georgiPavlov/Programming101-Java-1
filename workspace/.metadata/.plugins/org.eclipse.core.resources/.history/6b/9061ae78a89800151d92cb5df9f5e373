@@ -1,0 +1,20 @@
+package restaurant.agents;
+
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+
+public class CookSenderBehaviour extends Agent{
+	protected void setup(String message) {
+		System.out.println(this.getLocalName() + ":");		
+		sendMessage(message);
+		}
+		private void sendMessage(String message) {
+		AID r = new AID("CookReply", AID.ISLOCALNAME);
+		ACLMessage aclMessage = new
+		ACLMessage(ACLMessage.REQUEST);
+		aclMessage.addReceiver(r);
+		aclMessage.setContent(message);
+		this.send(aclMessage);
+		}
+}

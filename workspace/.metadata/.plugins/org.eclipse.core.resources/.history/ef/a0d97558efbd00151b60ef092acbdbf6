@@ -1,0 +1,30 @@
+package friday_v1;
+
+import java.util.HashMap;
+
+public class Bank {
+	private HashMap<Integer,BankAccount> mBank ;
+	
+	public Bank(){
+		mBank=null;
+	}
+	public Bank(HashMap<Integer,BankAccount> bank){
+		this.mBank = bank;
+	}
+	public void addAccount(BankAccount account){
+		mBank.put(account.getID(), account);
+	}
+	
+	public BankAccount getAccount(int ID){
+		return mBank.get(ID);
+	}
+	
+	public Bank initialize() throws Exception{
+		Bank bank = new Bank();
+		bank.mBank.put(1, new BankAccount("pesho","pesho",3,1000,0.2,"complex"));
+		bank.mBank.put(2, new BankAccount("gosho","gosho",3,1000,0.01,"complex"));
+		return bank;
+	}
+}
+
+

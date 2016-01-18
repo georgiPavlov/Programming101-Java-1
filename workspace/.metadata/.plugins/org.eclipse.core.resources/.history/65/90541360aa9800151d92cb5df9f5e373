@@ -1,0 +1,44 @@
+package restaurant.agents;
+
+import java.util.Scanner;
+
+import jade.core.AID;
+import jade.core.Agent;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.lang.acl.ACLMessage;
+
+public class ServerSenderBehaviour extends Agent{
+	
+	protected void setup() {
+		System.out.println(this.getLocalName() + ":");		
+		Scanner input = new Scanner(System.in);	
+		System.out.println("Enter recipe name:");
+		String recipeName = input.next();
+		DFAgentDescription dfd = new DFAgentDescription();
+		dfd.setName(getAID());
+		ServiceDescription sd = new ServiceDescription();
+		sd.setType("buyer");
+		sd.setName(getLocalName());
+		dfd.addServices(sd);
+		try {
+		DFService.register(this, dfd);
+		}
+		catch (FIPAException fe) {
+		fe.printStackTrace();
+		}
+		sendMessage(recipeName);
+		
+		}
+		private void sendMessage(String message) {
+		AID r = new AID("Cook", AID.ISLOCALNAME);
+		ACLMessage aclMessage = new
+		ACLMessage(ACLMessage.REQUEST);
+		aclMessage.addReceiver(r);
+		aclMessage.setContent(message);
+		this.send(aclMessage);
+		}
+
+}

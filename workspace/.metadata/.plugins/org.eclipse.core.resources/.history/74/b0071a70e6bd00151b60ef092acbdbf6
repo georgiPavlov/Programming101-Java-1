@@ -1,0 +1,199 @@
+package friday_v1;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import friday.InputException;
+
+public class BankAccountsCommandLineInterface {
+	private BankAccount mActiveAccount;
+	private Scanner mInput;
+	private PrintStream mOutput;
+
+	enum Commands {
+		start("start"), stop("stop"), create_bank_account("create_bank_account"), show_history(
+				"show_history"), add_money("add_money"), withdraw_money("withdraw_money"), transfer_money(
+						"transfer_money"), calculate_amount("calculate_amount");
+
+		private String mCommandText;
+
+		private Commands(String commandText) {
+			mCommandText = commandText;
+		}
+
+	};
+
+	public BankAccountsCommandLineInterface() {
+		this.mActiveAccount = null;
+		this.mInput = null;
+		this.mOutput = null;
+	}
+	
+	public BankAccountsCommandLineInterface(Scanner input,PrintStream output) {
+		this.mActiveAccount = null;
+		this.mInput = input;
+		this.mOutput = output;
+	}
+
+	public BankAccountsCommandLineInterface(BankAccount account) {
+		this.mActiveAccount = account;
+	}
+
+	public BankAccount getActiveAccount() {
+		return this.mActiveAccount;
+	}
+
+	public void setActiveAccount(BankAccount account) {
+		this.mActiveAccount = account;
+	}
+
+	public void start() throws IOException {
+		Commands command = Commands.start;
+		String []firstName = {""};
+		String []lastName = {""};
+		String []interestType = {""};
+		int []age = {-1};
+		double []balance = {-1};
+		double []interest = {-1} ;
+		while (true) {
+			this.mOutput.println("Willkommen!!!");
+			command.mCommandText = this.mInput.next();
+			switch (command.mCommandText) {
+			case "create_bank_account": {
+				while(!safeStringInput("Name:",firstName)){
+					mOutput.println("Fehler.");
+					mOutput.println("Ihre Name muss mindestens zwei Buchstaben sein.");
+					mOutput.println("Ihre Name sollten keine Zahlen enthalten.");
+					mOutput.println("Bitte,eintreten Sie die Information noch einmal.");
+				}
+				while(!safeStringInput("Familienname",lastName)){
+					mOutput.println("Fehler.");
+					mOutput.println("Ihre Familienname muss mindestens zwei Buchstaben sein.");
+					mOutput.println("Ihre Familienname sollten keine Zahlen enthalten.");
+					mOutput.println("Bitte,eintreten Sie die Information noch einmal.");
+				}
+				while(!safeIntInput("Jahre:",age,0)){
+					mOutput.println("Fehler.");
+					mOutput.println("Bitte,eintreten Sie die Information noch einmal.");
+				}
+				
+				while(!safeDoubleInput("Kontostand:",balance,1)){
+					mOutput.println("Fehler.");
+					mOutput.println("Die Kontostand muss mindestens 1 lev sein.");
+					mOutput.println("Bitte,eintreten Sie die Information noch einmal.");
+				}
+				while(!safeDoubleInput("Interesse:",interest,0,1)){
+					mOutput.println("Fehler.");
+					mOutput.println("Das interesse muss zwischen 0 und 1 sein.");
+					mOutput.println("Bitte,eintreten Sie die Information noch einmal.");
+				}
+				while(!safeStringInput("Interesse Typ:",interestType)){
+					if(!interestType.toString().equals("complex") && !interestType.toString().equals("simple")){
+						mOutput.println("Fehler.");
+						mOutput.println("Das interesse Typ kann nur 'complex' oder 'simple' sein.");
+						mOutput.println("Bitte,eintreten Sie die Information noch einmal.");
+					}
+				}
+				try {
+					setActiveAccount(new BankAccount(firstName[0],lastName[0],age[0],balance[0],interest[0],interestType[0]));
+				} catch (InputException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				mActiveAccount.printAccountInformation();
+			}
+			}
+
+		}
+	}
+
+	public Scanner getInput() {
+		return mInput;
+	}
+
+	public void setInput(Scanner mInput) {
+		this.mInput = mInput;
+	}
+
+	public PrintStream getOutput() {
+		return mOutput;
+	}
+
+	public void setOutput(PrintStream mOutput) {
+		this.mOutput = mOutput;
+	}
+
+	public boolean isValidString(String word) {
+		int i = 0;
+		boolean result = true;
+		for (i = 0; i < word.length(); i++) {
+			if (!Character.isLetter(word.charAt(i))) {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	public boolean safeStringInput(String informationMessage, String []word){
+		boolean result = false;
+		String input = "";
+		mOutput.println(informationMessage);
+		input = mInput.next();
+		if (isValidString(input) && input.length() >= 2) {
+			word[0]=input;
+			result = true;
+		}
+		return result;
+	}
+
+	public boolean safeIntInput(String informationMessage, int []integer, int lowerBoundary){
+		boolean result = false;
+		mOutput.println(informationMessage);
+		try{
+			integer[0] = mInput.nextInt();
+		}
+		catch (InputMismatchException e){
+			mInput.next();
+		}
+		if (integer[0] >= lowerBoundary) {
+			result = true;
+		}
+
+		return result;
+	}
+
+	public boolean safeDoubleInput(String informationMessage, double []number, double lowerBoundary){
+		boolean result = false;
+		mOutput.println(informationMessage);
+		try{
+			number[0] = mInput.nextDouble();
+		}
+		catch (InputMismatchException e){
+			mInput.next();
+		}
+		if(number[0] >= lowerBoundary){
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean safeDoubleInput(String informationMessage, double []number, double lowerBoundary,double upperBoundary){
+		boolean result = false;
+		mOutput.println(informationMessage);
+		try{
+			number[0] = mInput.nextDouble();
+		}
+		catch (InputMismatchException e){
+			mInput.next();
+		}
+		if(number[0]>=lowerBoundary && number[0]<=upperBoundary){
+			result = true;
+		}
+		return result;
+	}
+	
+}

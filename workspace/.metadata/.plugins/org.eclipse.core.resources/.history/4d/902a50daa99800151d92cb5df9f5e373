@@ -1,0 +1,28 @@
+package restaurant.agents;
+
+import java.util.Scanner;
+
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+
+public class ServerSenderBehaviour extends Agent{
+	
+	protected void setup() {
+		System.out.println(this.getLocalName() + ":");		
+		Scanner input = new Scanner(System.in);	
+		System.out.println("Enter recipe name:");
+		String recipeName = input.next();
+		sendMessage(recipeName);
+		
+		}
+		private void sendMessage(String message) {
+		AID r = new AID("Cook", AID.ISLOCALNAME);
+		ACLMessage aclMessage = new
+		ACLMessage(ACLMessage.REQUEST);
+		aclMessage.addReceiver(r);
+		aclMessage.setContent(message);
+		this.send(aclMessage);
+		}
+
+}

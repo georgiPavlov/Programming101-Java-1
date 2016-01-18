@@ -1,0 +1,22 @@
+package restaurant.agents;
+
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+
+public class SenderAgent extends Agent {
+	String recipe = "Apple Something";
+	
+	protected void setup() {		
+		System.out.println("My name is : " + this.getLocalName());
+		sendMessage();
+	}
+
+	private void sendMessage() {
+		AID r = new AID("Zara", AID.ISLOCALNAME);
+		ACLMessage aclMessage = new ACLMessage(ACLMessage.REQUEST);
+		aclMessage.addReceiver(r);
+		aclMessage.setContent(recipe);
+		this.send(aclMessage);
+	}
+}

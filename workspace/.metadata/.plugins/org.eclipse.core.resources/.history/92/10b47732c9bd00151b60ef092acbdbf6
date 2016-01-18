@@ -1,0 +1,142 @@
+package friday_v1;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+public class BankAccountsCommandLineInterface {
+	private BankAccount mActiveAccount;
+	private DataInputStream mInput;
+	private DataOutputStream mOutput;
+
+	enum Commands {
+		start("start"), stop("stop"), create_bank_account("create_bank_account"), show_history(
+				"show_history"), add_money("add_money"), withdraw_money("withdraw_money"), transfer_money(
+						"transfer_money"), calculate_amount("calculate_amount");
+
+		private String mCommandText;
+
+		private Commands(String commandText) {
+			mCommandText = commandText;
+		}
+
+	};
+
+	public BankAccountsCommandLineInterface() {
+		this.mActiveAccount = null;
+		this.mInput = null;
+		this.mOutput = null;
+	}
+	
+	public BankAccountsCommandLineInterface(DataInputStream input,DataOutputStream output) {
+		this.mActiveAccount = null;
+		this.mInput = input;
+		this.mOutput = output;
+	}
+
+	public BankAccountsCommandLineInterface(BankAccount account) {
+		this.mActiveAccount = account;
+	}
+
+	public BankAccount getActiveAccount() {
+		return this.mActiveAccount;
+	}
+
+	public void setActiveAccount(BankAccount account) {
+		this.mActiveAccount = account;
+	}
+
+	public void start() throws IOException {
+		Commands command = Commands.start;
+		String firstName = null;
+		String lastName = null;
+		String interestType;
+		int age = 0;
+		double balance;
+		double interest;
+		while (true) {
+			this.mOutput.writeUTF("Willkommen,Bitte Eintreten deine name");
+			command.mCommandText = this.mInput.readUTF();
+			switch (command.mCommandText) {
+			case "create_bank_account": {
+				while(!safeStringInput("Enter Name:",firstName,this.mInput,this.mOutput)){}
+				while(!safeStringInput("Enter Lastname",lastName,this.mInput,this.mOutput)){}
+				while(!safeIntInput("Enter Age:",age,0,this.mInput,this.mOutput)){}
+			}
+			}
+
+		}
+	}
+
+	public DataInputStream getmInput() {
+		return mInput;
+	}
+
+	public void setInput(DataInputStream mInput) {
+		this.mInput = mInput;
+	}
+
+	public DataOutputStream getOutput() {
+		return mOutput;
+	}
+
+	public void setOutput(DataOutputStream mOutput) {
+		this.mOutput = mOutput;
+	}
+
+	public boolean isValidString(String word) {
+		int i = 0;
+		boolean result = true;
+		for (i = 0; i < word.length(); i++) {
+			if (!Character.isLetter(word.charAt(i))) {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	public boolean safeStringInput(String informationMessage, String word, DataInputStream input,
+			DataOutputStream output) throws IOException {
+		boolean result = false;
+		output.writeUTF(informationMessage);
+		word = input.readUTF();
+		if (isValidString(word) && word.length() >= 2) {
+			result = true;
+		}
+		return result;
+	}
+
+	public boolean safeIntInput(String informationMessage, int integer, int lowerBoundary, DataInputStream input,
+			DataOutputStream output) throws IOException {
+		boolean result = false;
+		output.writeUTF(informationMessage);
+		integer = input.readInt();
+		if (integer >= lowerBoundary) {
+			result = true;
+		}
+		return result;
+	}
+
+	public boolean safeDoubleInput(String informationMessage, double number, double lowerBoundary, DataInputStream input,
+			DataOutputStream output) throws IOException {
+		boolean result = false;
+		output.writeUTF(informationMessage);
+		input.readDouble();
+		if(number>=lowerBoundary){
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean safeDoubleInput(String informationMessage, double number, double lowerBoundary,double upperBoundary, DataInputStream input,
+			DataOutputStream output) throws IOException {
+		boolean result = false;
+		output.writeUTF(informationMessage);
+		input.readDouble();
+		if(number>=lowerBoundary && number<=upperBoundary){
+			result = true;
+		}
+		return result;
+	}
+	
+}

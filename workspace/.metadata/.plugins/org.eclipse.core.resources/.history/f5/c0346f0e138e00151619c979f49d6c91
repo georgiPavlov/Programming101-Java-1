@@ -1,0 +1,210 @@
+package week1;
+
+public class week1 {
+	boolean isOdd(int n){
+		if(n%2==0)return false;
+		else return true;
+	}
+	
+	boolean isPrime(int n){
+		int i=0;
+		boolean result=true;
+		for(i=0;i<n/2;i++){
+			if(i%2==0)return false;
+		}
+		return result;
+	}
+
+	int min(int array[]){
+		int i=0;
+		int min=array[0];
+		for(i=1;i<array.length;i++){
+			if(min>array[i])min=array[i];
+		}
+		return min;
+	}
+	double kthMin(int k,int[] array){
+		int i=0;
+		int j=0;
+		int []ArrayOfMins = new int[k];
+		for(i=0;i<ArrayOfMins.length;i++){
+			ArrayOfMins[i]=array[i];
+		}
+		for(i=0;i<ArrayOfMins.length;i++){
+			for(j=0;j<array.length;j++){
+				if(ArrayOfMins[i]>array[j]){
+					ArrayOfMins[i]=array[j];
+				}
+			}
+		}
+		return ArrayOfMins[k-1];
+	}
+	double getAverage(int[] array){
+		int i=0;
+		int Sum=0;
+		for(i=0;i<array.length;i++){
+			Sum=Sum + array[i];
+		}
+		return Sum/array.length;
+	}
+	static long factoriel(long n){
+		int i=0;
+		int result=1;
+		for(i=1;i<=n;i++){
+			result=result*i;
+		}
+		return result;
+	}
+	
+	static long doubleFactoriel(long n){
+		return factoriel(factoriel(n));
+	}
+	
+	static long kthFac(int k,int n){
+		int i=0;
+		long result=1;
+		for(i=0;i<k;i++){
+			result=result*factoriel(n);
+		}
+		return result;
+	}
+	static long getGreatestCommonDivisor(long x,long y){
+		long remainder=1;
+		do{
+			if(x>y) {
+				remainder=x%y;
+				if(remainder==0)return y;
+				x=remainder;
+			}
+			else {
+				remainder=y%x;
+				if(remainder==0)return x;
+				y=remainder;				
+			}
+			
+		}while(true);
+		
+	}
+	
+	static long getSmallestMultiple(int upperBound){
+		int i=0;
+		long lowestCommonMultiple;
+		int[] array = new int[upperBound];
+		for(i=0;i<upperBound;i++){
+			array[i]=i+1;
+		}
+		lowestCommonMultiple=array[upperBound-1];
+		for(i=upperBound-2;i>2;i--){
+			lowestCommonMultiple=((i*lowestCommonMultiple)/getGreatestCommonDivisor(i,lowestCommonMultiple));
+		}
+		
+		return lowestCommonMultiple;
+	}
+		
+	static long getLargestPalindrome(long N){
+		int countDigits=0;
+		int i=0;
+		long M=N;
+		while(N!=0){
+			countDigits++;
+			N=N/10;
+		}
+		long []array = new long[countDigits];
+		
+		for(i=countDigits-1;i>=0;i--){
+			array[i]=M%10;
+			M=M/10;
+		}
+		long []palindrome = new long[countDigits];
+		for(i=countDigits-1;i>=0;i--){
+			if(i>countDigits/2){
+				if((array[i]-array[countDigits-i])>=0){
+					palindrome[i]=array[i]-(array[i]-array[countDigits-i-1]);
+				}
+				else{
+					palindrome[i]=array[i]+(array[i]-array[countDigits-i-1]);
+				}
+			}
+			else{
+				palindrome[i]=array[i];
+			}
+		}
+		long result=0;
+		for(i=0;i<countDigits;i++){
+			if(palindrome[i]!=0){
+				result=result+palindrome[i]*pow(10,i);
+			}
+			else{
+				result=result+pow(10,i);
+			}
+		}
+		return result;
+	}
+	
+	int[] histogram(short[][] image){
+		int []result = new int [image.length];
+		int i=0;
+		int j=0;
+		
+		for(i=0;i<result.length;i++){
+			result[i]=0;
+		}
+		
+		for(i=0;i<image.length;i++){
+			for(j=0;j<image.length;i++){
+				if(image[i][j]==j){
+					result[j]++;
+				}
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	static long pow(int a,int b){
+		int result=1;
+		while(b>0){
+			if(b%2==0){
+				b=b/2;
+				a=a*a;
+			}
+			else{
+				result=result*a;
+				b--;
+			}
+		}
+		return result;
+	}
+
+
+	static int getOddOccurrence(int[] array){
+	int i=0;
+	int j=0;
+	int count=0;
+	int oddOccurence=0;
+		for(i=0;i<array.length;i++){
+			for(j=0;j<array.length;j++){
+				if(array[i]==array[j])count++;
+			}
+			if(count%2!=0){
+				oddOccurence=array[i];
+				break;
+			}
+		}
+		return oddOccurence;
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(kthFac(2,3));
+		System.out.println(doubleFactoriel(3));
+		System.out.println(getSmallestMultiple(10));
+		System.out.println(getLargestPalindrome(1234329));
+		System.out.println(pow(2,5));
+		int []array = { 1,2,2,1,3,4,3,4,4,6,5,6,5 };
+		System.out.println(getOddOccurrence(array));
+	}
+
+}

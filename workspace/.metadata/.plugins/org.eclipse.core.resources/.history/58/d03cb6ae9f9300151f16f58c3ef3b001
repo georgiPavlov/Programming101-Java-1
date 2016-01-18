@@ -1,0 +1,11 @@
+package Tasks;
+
+public abstract class Car {
+	
+	boolean testing;
+	
+	abstract boolean isEcoFriendly();
+
+	
+
+}

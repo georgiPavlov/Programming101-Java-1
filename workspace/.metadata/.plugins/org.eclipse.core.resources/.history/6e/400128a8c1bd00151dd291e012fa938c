@@ -1,0 +1,17 @@
+package friday_v1;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+
+final public class BankAccountConsole {
+	
+	BankAccountsCommandLineInterface console;
+	
+	public BankAccountConsole(){
+		DataInputStream input =    new DataInputStream(System.in);
+		DataOutputStream output =  new DataOutputStream(System.out);
+		console = new BankAccountsCommandLineInterface(input,output);
+	}
+
+}

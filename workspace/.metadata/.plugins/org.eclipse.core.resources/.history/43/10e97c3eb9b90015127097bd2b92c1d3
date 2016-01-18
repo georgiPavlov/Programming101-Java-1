@@ -1,0 +1,240 @@
+package friday_v1;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import friday.AccountBlockedException;
+import friday.InputException;
+import friday.InsufficientFundsException;
+
+public class BankAccount {
+
+	private enum InterestType {
+		simple("simple"), complex("complex");
+
+		public String mText;
+
+		InterestType(String text) {
+			mText = text;
+		}
+
+		public String getText() {
+			return this.mText;
+		}
+
+	};
+
+	private enum Operations {
+		add("add"), withdraw("withdraw"), transfer("transfer");
+		private String mText;
+
+		Operations(String text) {
+			mText = text;
+		}
+	};
+
+	private int mCode = 1;
+	private final int mID;
+	private String mFirstName;
+	private String mLastName;
+	private int mAge;
+	private double mBalance;
+	private double mInterest;
+	private InterestType mInterestType;
+	private AccountHistory[] mHistory;
+	private int mLastOperation = 0;
+
+	public BankAccount(String firstName, String lastName, int age, double balance, double interest, String interestType)
+			throws InputException {
+
+		setFirstName(firstName);
+		setLastName(lastName);
+		setAge(age);
+		setBalance(balance);
+		setInterest(interest);
+		setInterestType(interestType);
+		this.mHistory = new AccountHistory[5];
+		this.mID = (int) firstName.charAt(0) + 100 * (int) lastName.charAt(0) + 10000 * age + 1000000 * mCode;
+		this.mCode++;
+
+	}
+
+	public String getFirstName() {
+		return mFirstName;
+	}
+
+	public void setFirstName(String firstName) throws InputException {
+		if (firstName.length() < 2) {
+			throw new InputException();
+		} else {
+			mFirstName = firstName;
+		}
+	}
+
+	public String getLastName() {
+		return mLastName;
+	}
+
+	public void setLastName(String lastName) throws InputException {
+		if (lastName.length() < 2) {
+			throw new InputException();
+		} else {
+			this.mLastName = lastName;
+		}
+	}
+
+	public int getAge() {
+		return this.mAge;
+	}
+
+	public void setAge(int age) throws InputException {
+		if (age < 1) {
+			throw new InputException();
+		} else {
+			this.mAge = age;
+		}
+	}
+
+	public double getBalance() {
+		return this.mBalance;
+	}
+
+	public void setBalance(double balance) throws InputException {
+		if (balance <= 0) {
+			throw new InputException();
+		} else {
+			this.mBalance = balance;
+		}
+	}
+
+	public double getInterest() {
+		return this.mInterest;
+	}
+
+	public void setInterest(double interest) throws InputException {
+		if (interest < 0 || interest > 1) {
+			throw new InputException();
+		} else {
+			this.mInterest = interest;
+		}
+	}
+
+	public InterestType getInterestType() {
+		return this.mInterestType;
+	}
+
+	public void setInterestType(String interestType) throws InputException {
+		if (interestType.equals("simple")) {
+			this.mInterestType = InterestType.simple;
+		} else if (interestType.equals("complex")) {
+			this.mInterestType = InterestType.complex;
+		} else {
+			throw new InputException();
+		}
+	}
+
+	public int getID() {
+		return mID;
+	}
+
+	public void add(double sum) throws InputException {
+		double balanceBeforeOperation = this.mBalance;
+		if (sum < 0) {
+			throw new InputException();
+		} else {
+			this.mBalance = this.mBalance + sum;
+			changeHistory(this.mID, this.mLastOperation, Operations.add, balanceBeforeOperation, this.mBalance);
+		}
+	}
+
+	public void withdraw(double sum) throws InputException, AccountBlockedException, InsufficientFundsException {
+		double balanceBeforeOperation = this.mBalance;
+		if (sum < 0) {
+			throw new InputException();
+		} else if (this.mBalance < sum) {
+			throw new InsufficientFundsException();
+		} else if (this.mInterest > 0.01) {
+			throw new AccountBlockedException();
+		} else {
+			this.mBalance = this.mBalance - sum;
+			changeHistory(this.mID, this.mLastOperation, Operations.withdraw, balanceBeforeOperation, this.mBalance);
+		}
+	}
+
+	public void transfer(BankAccount recipientAccount, double transferSum)
+			throws InputException, InsufficientFundsException, AccountBlockedException {
+		double balanceBeforeOperation = this.mBalance;
+		if (this.mBalance < transferSum) {
+			throw new InsufficientFundsException();
+		} else if (this.mInterest > 0.1) {
+			throw new AccountBlockedException();
+		} else if (transferSum <= 0) {
+			throw new InputException();
+		} else {
+			this.mBalance = this.mBalance - transferSum;
+			recipientAccount.add(transferSum);
+			changeHistory(recipientAccount.getID(), this.mLastOperation, Operations.transfer, balanceBeforeOperation,
+					this.mBalance);
+		}
+	}
+
+	public void changeHistory(int accountID, int lastOperation, Operations operationType, double balanceBeforeOperation,
+			double balanceAfterOperation) {
+		if (lastOperation == 4) {
+			for (int i = 0; i < 4; i++) {
+				mHistory[i].updateHistory(mHistory[i + 1].getDonorAccountID(), mHistory[i + 1].getRecipientAccountID(),
+						mHistory[i + 1].getLastOperationType(), mHistory[i + 1].getBalanceBeforeOperation(),
+						mHistory[i + 1].getBalanceAfterOperation());
+			}
+			mHistory[lastOperation].updateHistory(this.mID, accountID, operationType.mText, balanceBeforeOperation,
+					balanceAfterOperation);
+		} else {
+			mHistory[lastOperation].updateHistory(this.mID, accountID, operationType.mText, balanceBeforeOperation,
+					balanceAfterOperation);
+			mLastOperation++;
+		}
+	}
+	
+	public void calculateAmount(int months)throws InputException{
+		double amount = this.mBalance;
+		if(months<1){
+			throw new InputException();
+		}else if(this.mInterestType==InterestType.simple){
+			amount =amount + months*this.mInterest*this.mBalance;
+		}else if(this.mInterestType==InterestType.complex){
+			for(int i=0;i<months;i++){
+				amount = amount + this.mInterest*amount;
+			}
+		}
+	}
+	
+	public void printAccountInformation() {
+		System.out.println("First Name:" + this.mFirstName);
+		System.out.println("Last Name:" + this.mLastName);
+		System.out.println("Age:" + this.mAge);
+		System.out.println("Balance" + this.mBalance);
+		System.out.println("Interest" + this.mInterest);
+		System.out.println("InterestType" + this.mInterestType);
+		System.out.println("History:");
+		System.out.println(getHistory());
+	}
+
+	public void printAccountInformation(DataOutputStream output) throws IOException {
+		output.writeUTF("First Name:" + this.mFirstName);
+		output.writeUTF("Last Name:" + this.mLastName);
+		output.writeUTF("Age:" + this.mAge);
+		output.writeUTF("Balance" + this.mBalance);
+		output.writeUTF("Interest" + this.mInterest);
+		output.writeUTF("InterestType" + this.mInterestType);
+		output.writeUTF("History:");
+		output.writeUTF(getHistory());
+	}
+
+	public String getHistory() {
+		StringBuilder history = null;
+		for (int i = 0; i < this.mLastOperation; i++) {
+			history.append(mHistory[i].getAccountHistoryInformation());
+		}
+		return history.toString();
+	}
+}

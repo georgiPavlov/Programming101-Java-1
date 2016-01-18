@@ -1,0 +1,68 @@
+package friday_v1;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+public class BankAccountsCommandLineInterface {
+	private BankAccount mActiveAccount;
+
+	enum Commands {
+		start("start"), stop("stop"), create_bank_account("create_bank_account"), show_history(
+				"show_history"), add_money("add_money"), withdraw_money("withdraw_money"), transfer_money(
+						"transfer_money"), calculate_amount("calculate_amount");
+
+		private String mCommandText;
+
+		private Commands(String commandText) {
+			mCommandText = commandText;
+		}
+
+	};
+	
+	public BankAccountsCommandLineInterface(){
+		this.mActiveAccount=null;
+	}
+	
+	public BankAccountsCommandLineInterface(BankAccount account){
+		this.mActiveAccount = account;
+	}
+	
+	public BankAccount getActiveAccount(){
+		return this.mActiveAccount;
+	}
+	
+	public void setActiveAccount(BankAccount account){
+		this.mActiveAccount = account;
+	}
+	
+	public void start(DataInputStream input,DataOutputStream output) throws IOException{
+		Commands command = Commands.start;
+		while(true){
+			command.mCommandText=input.readUTF();
+			switch(command.mCommandText){
+			case "create_bank_account":{
+				
+			}
+			}
+
+		}
+	}
+	
+	public boolean isValidString(String word){
+		int i = 0;
+		boolean result = true;
+		for (i = 0; i < word.length(); i++) {
+			if (!Character.isLetter(word.charAt(i))) {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
+	public boolean safeStringInput(String informationMessage,String word,DataInputStream input,DataOutputStream output)throws IOException{
+		boolean result = false;
+		return result;
+
+	}
+}
